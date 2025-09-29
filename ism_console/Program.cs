@@ -4,6 +4,7 @@ using ism_core;
 
 namespace ism_console
 {
+    //taskkill /F /IM ism_console.exe
     class Program
     {
         public static List<User> users = new List<User>();
@@ -77,6 +78,7 @@ namespace ism_console
                 ShowMenu();
                 Console.Write("Kérem a menüpont számát: ");
                 string choice = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine("\n");
                 switch (choice)
                 {
                     case "1": CreateUser(userService); break;
