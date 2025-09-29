@@ -11,6 +11,17 @@ namespace ism_console
 
         public static char separator = Config.CsvSeparator;
 
+        static void ShowMenu() {
+            Console.WriteLine("\n--- USER MENÜ ---");
+            Console.WriteLine("1: Új felhasználó létrehozása");
+            Console.WriteLine("2: Felhasználó keresése index alapján");
+            Console.WriteLine("3: Felhasználó nevének frissítése index alapján");
+            Console.WriteLine("4: Felahsználó törlése index alapján");
+            Console.WriteLine("5: Felhasználók listázása");
+            Console.WriteLine("6: Felashználók fájlba írása");
+            Console.WriteLine("0: Kilépés");
+        }
+
         public static void CreateUser(UserService service) {
             Console.Write("Kérek egy nevet: ");
             string name = Console.ReadLine();
@@ -35,7 +46,16 @@ namespace ism_console
             
         }
 
-        static void Main(string[] args)
+        public static void ReadUser(UserService service)
+        {
+            Console.WriteLine("Kérem a user id-jét: ");
+            int id = int.Parse(Console.ReadLine());
+
+            User user = service.GetUserById(id);
+            Console.WriteLine(user!= null?user:"Nincs ilyen user!");
+        }
+
+            static void Main(string[] args)
         {
             // UI metódusok
 
@@ -53,8 +73,19 @@ namespace ism_console
             }
             */
 
-            CreateUser(userService);
-
+            while(true) {
+                ShowMenu();
+                Console.Write("Kérem a menüpont számát: ");
+                string choice = Console.ReadKey().KeyChar.ToString();
+                switch (choice)
+                {
+                    case "1": CreateUser(userService); break;
+                    case "2": ReadUser(userService); break;
+                    case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
+                    default: Console.WriteLine("Nincs ilyen menüpont!"); break;
+                }
+            }
+            
             Console.ReadKey();
 
             /*User user = new User();
