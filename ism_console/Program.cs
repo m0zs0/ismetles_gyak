@@ -90,6 +90,20 @@ namespace ism_console
             }
         }
 
+        static void SaveAllUsers(UserService service) {
+            try
+            {
+                service.SaveUsersToCsvFile(Config.CsvFullPath, separator);
+                Console.WriteLine("Felhasználók mentve a fájlba.");
+                System.Diagnostics.Debug.WriteLine("Felhasználók mentve a fájlba.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba a mentés során: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Hiba a mentés során: " + ex.Message);
+            }
+        }
+
         static void Main(string[] args)
         {
             // UI metódusok
@@ -107,8 +121,9 @@ namespace ism_console
                 Environment.Exit(1);
             }
             */
+            userService.LoadUsersFromCsvFile(Config.CsvFullPath, separator);
 
-            while(true) {
+            while (true) {
                 ShowMenu();
                 Console.Write("Kérem a menüpont számát: ");
                 string choice = Console.ReadKey().KeyChar.ToString();
@@ -120,6 +135,7 @@ namespace ism_console
                     case "3": UpdateUser(userService); break;
                     case "4": DeleteUser(userService); break;
                     case "5": ListAllUsers(userService); break;
+                    case "6": SaveAllUsers(userService); break;
                     case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
                     default: Console.WriteLine("Nincs ilyen menüpont!"); break;
                 }
